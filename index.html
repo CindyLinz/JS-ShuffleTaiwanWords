@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Shuffled Taiwan words, can you read it?</title>
+        <script>function init(){
+            function shuffle(input){
+                return input.replace(/[\u3400-\u4DBF\u4E00-\u9FFF\uA000-\uA4FF\uF900-\uFAFF]+/g, function(words){
+                    var pos = [], i, out = '';
+                    for(i=words.length-1; i>=0; --i)
+                        pos[i] = [i + Math.random()*5-2, i];
+                    pos.sort(function(a, b){ return a[0] - b[0] });
+                    for(i=0; i<words.length; ++i)
+                        out += words.charAt(pos[i][1]);
+                    return out;
+                });
+            }
+
+            document.getElementById('button').onclick = function(){
+                document.getElementById('output').value = shuffle(document.getElementById('input').value);
+            };
+        }</script>
+    </head>
+    <body onload=init()>
+        <h2>Shuffled Taiwan words, can you read it?</h2>
+        Input:<br>
+        <textarea id=input style=width:80%;height:200px></textarea><br>
+        <button id=button>Shuffle!</button><br>
+        Output:<br>
+        <textarea id=output style=width:80%;height:200px></textarea>
+    </body>
+</html>
